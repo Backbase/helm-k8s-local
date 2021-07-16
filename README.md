@@ -87,3 +87,4 @@ All configuration is provided in values.yaml
 - 0.2.0: Charts and App version update
 - 0.4.0: Nginx chart added
 - 0.5.0: Added identity with CX/IPS charts update
+- 0.6.0: Backbase Bom and charts update

@@ -10,7 +10,7 @@ backbase-statics:
         username: <yourRepoUsername>
         password: <yourRepoPassword>
         statics:
-          - /backbase-6-release/com/backbase/tools/cx/cx6-import-tool-cli/6.3.0-b4/cx6-import-tool-cli-6.3.0-b4.jar
-          - /backbase-6-release/com/backbase/cxp/editorial-collection/2.1.0-b9/editorial-collection-2.1.0-b9.zip
-          - /expert-release-local/com/backbase/web-sdk/collection/collection-bb-web-sdk/1.15.2/collection-bb-web-sdk-1.15.2.zip
-          - /backbase-6-release/com/backbase/cxp/experience-manager/2.1.0-b9/experience-manager-2.1.0-b9.zip
+          - /backbase-6-release/com/backbase/tools/cx/cx6-import-tool-cli/6.3.4-b1/cx6-import-tool-cli-6.3.4-b1.jar
+          - /backbase-6-release/com/backbase/cxp/editorial-collection/2.23.0-b21/editorial-collection-2.23.0-b21.zip
+          - /expert-release-local/com/backbase/web-sdk/collection/collection-bb-web-sdk/1.16.1/collection-bb-web-sdk-1.16.1.zip
+          - /backbase-6-release/com/backbase/cxp/experience-manager/2.23.0-b21/experience-manager-2.23.0-b21.zip

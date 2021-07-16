@@ -1,7 +1,5 @@
 global:
-  ipsVersion: IPS-1.13.0
-  cxVersion: CXS-6.3.0
-  identityVersion: IDENTITY-1.8.0
+  bbVersion: "2021.07"
   env:
     "EUREKA_CLIENT_ENABLED": "false"
     "SPRING_CLOUD_KUBERNETES_ENABLED": "true"
@@ -60,8 +58,7 @@ edge:
       GATEWAY_ACTUATOR_PASSWORD: "admin"
     app:
       image:
-        repository: edge
-        tagFrom: ipsVersion
+        tagFrom: bbVersion
     ingress:
       enabled: true
       annotations:
@@ -121,13 +118,8 @@ backbase-identity:
             - key: backbase-users-0.json
               path: backbase-users-0.json
     app:
-      name: backbaseidentity
       image:
-        repository: backbase-identity
-        tagFrom: identityVersion
-    service:
-      enabled: true
-      nameOverride: backbaseidentity
+        tagFrom: bbVersion
     ingress:
       enabled: true
       annotations:
@@ -150,10 +142,10 @@ oidc-token-converter:
       BACKBASE_OIDCTOKENCONVERTER_FORCEJWKSVERIFICATIONGIVENMATCHINGCLAIMS: "true"
       BACKBASE_TOKENCONVERTER_CLAIMVALUEVALIDATION_CLAIMDENYENTRIES_0_CLAIMNAME: "acr"
       BACKBASE_TOKENCONVERTER_CLAIMVALUEVALIDATION_CLAIMDENYENTRIES_0_CLAIMVALUES: "bb:deny"
-      BACKBASE_OIDCTOKENCONVERTER_WHITELISTEDDOMAINS_0_ISSUERHOST: "backbaseidentity"
-      BACKBASE_OIDCTOKENCONVERTER_WHITELISTEDDOMAINS_0_INTERNALHOST: "backbaseidentity:8080"
+      BACKBASE_OIDCTOKENCONVERTER_WHITELISTEDDOMAINS_0_ISSUERHOST: "identity-backbaseidentity"
+      BACKBASE_OIDCTOKENCONVERTER_WHITELISTEDDOMAINS_0_INTERNALHOST: "identity-backbaseidentity:8080"
       BACKBASE_OIDCTOKENCONVERTER_WHITELISTEDDOMAINS_1_ISSUERHOST: "identity.docker.internal"
-      BACKBASE_OIDCTOKENCONVERTER_WHITELISTEDDOMAINS_1_INTERNALHOST: "backbaseidentity:8080"
+      BACKBASE_OIDCTOKENCONVERTER_WHITELISTEDDOMAINS_1_INTERNALHOST: "identity-backbaseidentity:8080"
       BACKBASE_OIDCTOKENCONVERTER_USERINFOVERIFICATION: "true"
       BACKBASE_TOKENCONVERTER_CLAIMSMAPPING_0_EXTERNAL: "userinfo_external_claim"
       BACKBASE_TOKENCONVERTER_CLAIMSMAPPING_0_INTERNAL: "userinfo_internal_claim"
@@ -163,17 +155,15 @@ oidc-token-converter:
       BACKBASE_TOKENCONVERTER_CLAIMSMAPPING_1_REQUIRED: "false"
       SPRING_AUTOCONFIGURE_EXCLUDE: "org.springframework.cloud.function.context.config.ContextFunctionCatalogAutoConfiguration"
     app:
-      name: oidctokenconverter
       image:
-        repository: oidc-token-converter-service
-        tagFrom: identityVersion
+        tagFrom: bbVersion
 
 cxs-contentservices:
   contentservices:
     app:
       name: contentservices
       image:
-        tagFrom: cxVersion
+        tagFrom: bbVersion
     env:
       "SPRING_LIQUIBASE_ENABLED": "true"
 
@@ -182,7 +172,7 @@ cxs-provisioning:
     app:
       name: provisioning
       image:
-        tagFrom: cxVersion
+        tagFrom: bbVersion
     env:
       "SPRING_LIQUIBASE_ENABLED": "true"
 
@@ -191,7 +181,7 @@ cxs-portal:
     app:
       name: portal
       image:
-        tagFrom: cxVersion
+        tagFrom: bbVersion
     env:
       "SPRING_LIQUIBASE_ENABLED": "true"
       "portal.experiences.configuration.clientId": "bb-web-client"
@@ -219,7 +209,7 @@ backbase-statics:
       enabled: true
       targets:
         - name: Authentication
-          url: http://backbaseidentity:8080/auth/realms/backbase/.well-known/openid-configuration
+          url: http://identity-backbaseidentity:8080/auth/realms/backbase/.well-known/openid-configuration
         - name: 8080/api/provisioning
           url: http://edge:8080/api/provisioning/actuator/health
     imports:
@@ -228,16 +218,16 @@ backbase-statics:
         username: <yourRepoUsername>
         password: <yourRepoPassword>
         statics:
-          - /backbase-6-release/com/backbase/tools/cx/cx6-import-tool-cli/6.3.0-b4/cx6-import-tool-cli-6.3.0-b4.jar
-          - /backbase-6-release/com/backbase/cxp/editorial-collection/2.1.0-b9/editorial-collection-2.1.0-b9.zip
-          - /expert-release-local/com/backbase/web-sdk/collection/collection-bb-web-sdk/1.15.2/collection-bb-web-sdk-1.15.2.zip
-          - /backbase-6-release/com/backbase/cxp/experience-manager/2.1.0-b9/experience-manager-2.1.0-b9.zip
+          - /backbase-6-release/com/backbase/tools/cx/cx6-import-tool-cli/6.3.4-b1/cx6-import-tool-cli-6.3.4-b1.jar
+          - /backbase-6-release/com/backbase/cxp/editorial-collection/2.23.0-b21/editorial-collection-2.23.0-b21.zip
+          - /expert-release-local/com/backbase/web-sdk/collection/collection-bb-web-sdk/1.16.1/collection-bb-web-sdk-1.16.1.zip
+          - /backbase-6-release/com/backbase/cxp/experience-manager/2.23.0-b21/experience-manager-2.23.0-b21.zip
     target:
       identity-scope: openid
       identity-grant-type: password
       identity-client-id: bb-tooling-client
       identity-realm: backbase
-      auth-url: http://backbaseidentity:8080
+      auth-url: http://identity-backbaseidentity:8080
       context: http://edge:8080/api/provisioning
       password: admin
       retry-back-off-period: 2000

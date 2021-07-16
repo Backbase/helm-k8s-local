@@ -4,27 +4,27 @@ dependencies:
   version: 0.5.51
 - name: edge
   repository: https://repo.backbase.com/backbase-charts
-  version: 0.11.0
+  version: 0.12.0
 - name: cxs-portal
   repository: https://repo.backbase.com/backbase-charts
-  version: 0.7.2
+  version: 0.7.7
 - name: cxs-contentservices
   repository: https://repo.backbase.com/backbase-charts
-  version: 0.7.0
+  version: 0.8.5
 - name: cxs-provisioning
   repository: https://repo.backbase.com/backbase-charts
-  version: 0.7.2
+  version: 0.7.8
 - name: ingress-nginx
   repository: https://kubernetes.github.io/ingress-nginx
   version: 3.23.0
 - name: backbase-identity
   repository: https://repo.backbase.com/backbase-charts
-  version: 0.1.0
+  version: 0.1.1
 - name: oidc-token-converter
   repository: https://repo.backbase.com/backbase-charts
-  version: 0.1.0
+  version: 0.1.2
 - name: backbase-statics
   repository: https://repo.backbase.com/backbase-charts
   version: 0.1.8
-digest: sha256:c956eac73140d85d2285f66e12cad6e14ff70af96a03774973f131a69f051f22
-generated: "2021-02-22T17:57:48.0577792+01:00"
+digest: sha256:74d4362f4af0d9c63b8b20342974dc475df0cca2256cc47f723417773048313a
+generated: "2021-07-16T13:23:35.20783+02:00"
